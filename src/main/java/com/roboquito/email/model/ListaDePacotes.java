@@ -5,8 +5,17 @@ import java.util.List;
 
 public class ListaDePacotes {
 	
-	private List<Pacote> listaDePacotes = new ArrayList<>();
+	private static List<Pacote> listaDePacotes = new ArrayList<>();
+	private static ListaDePacotes instance = null;
 	
+	private ListaDePacotes() {}
+	
+	public static ListaDePacotes getInstance() {
+		if(instance == null) {
+			instance = new ListaDePacotes();
+		}
+		return instance;
+	}
 	
 	public void excluirByDestinatario(String destinatario) {
 		for (Pacote pacote : listaDePacotes) {
@@ -34,7 +43,7 @@ public class ListaDePacotes {
 	
 	
 	public void addPacote(Pacote pacote) {
-		this.listaDePacotes.add(pacote);
+		listaDePacotes.add(pacote);
 	}
 
 }
