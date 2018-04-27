@@ -5,16 +5,19 @@ import java.util.ArrayList;
 
 import com.roboquito.email.model.Pacote;
 import com.roboquito.email.model.ServerMethods;
+import com.roboquito.email.repository.PacotesRepository;
 import com.roboquito.email.service.Util;
 
 public class AtenderCliente implements Runnable {
 
+	PacotesRepository pacotesRepository;
 	Object objeto;
 	Socket socketCliente;
 	ArrayList<ServerMethods> metodos = new ArrayList<ServerMethods>();
 
 	public AtenderCliente(Socket cliente) {
 		this.socketCliente = cliente;
+		this.pacotesRepository = PacotesRepository.getInstance();
 		for (ServerMethods sm : ServerMethods.values()) {
 			metodos.add(sm);
 		}
@@ -22,7 +25,7 @@ public class AtenderCliente implements Runnable {
 		try {
 			objeto = Util.lerObjecto(cliente.getInputStream());
 		} catch (Exception e) {
-			System.out.println("SERVIDOR - Erro na leitura do objeto");
+			System.out.println("SERVIDOR - Erro na leitura do objeto" + e);
 		}
 	}
 
@@ -33,11 +36,15 @@ public class AtenderCliente implements Runnable {
 			if (msg != null) {
 				switch (msg.getMetodo()) {
 				case SAVE_OBJECT:
+					pacotesRepository.addPacote(msg);
 					System.out.println("SERVIDOR - O pacote foi salvo no servidor");
 					break;
 
 				case GET_ALL_OBJECTS:
-					System.out.println("SERVIDOR - Retornar lista de Objetos");
+					for(Pacote p: pacotesRepository.getAllPackages()) {
+						System.out.println(p.getMensagem());
+					}
+					
 					break;
 
 				case GET_OBJECTS_BYADDRESSEE:
@@ -50,10 +57,10 @@ public class AtenderCliente implements Runnable {
 				}
 			}
 
-			System.out.println("SERVIDOR - " + msg.getMensagem());
-			msg.setMensagem("Pode ficar tranquilo que a avaliação será considerada!");
-			Util.enviarObjeto(msg, socketCliente.getOutputStream());
-			System.out.println("SERVIDOR - Pacote encaminhado para o cliente");
+			//System.out.println("SERVIDOR - " + msg.getMensagem());
+			//msg.setMensagem("Pode ficar tranquilo que a avaliação será considerada!");
+			//Util.enviarObjeto(msg, socketCliente.getOutputStream());
+			//System.out.println("SERVIDOR - Pacote encaminhado para o cliente");
 
 		} catch (Exception e) {
 			e.printStackTrace();

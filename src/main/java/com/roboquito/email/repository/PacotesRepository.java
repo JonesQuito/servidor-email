@@ -1,18 +1,20 @@
-package com.roboquito.email.model;
+package com.roboquito.email.repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaDePacotes {
+import com.roboquito.email.model.Pacote;
+
+public class PacotesRepository {
 	
 	private static List<Pacote> listaDePacotes = new ArrayList<>();
-	private static ListaDePacotes instance = null;
+	private static PacotesRepository instance = null;
 	
-	private ListaDePacotes() {}
+	private PacotesRepository() {}
 	
-	public static ListaDePacotes getInstance() {
+	public static PacotesRepository getInstance() {
 		if(instance == null) {
-			instance = new ListaDePacotes();
+			instance = new PacotesRepository();
 		}
 		return instance;
 	}
@@ -39,6 +41,10 @@ public class ListaDePacotes {
 			}
 		}
 		return myPacotes;
+	}
+	
+	public List<Pacote> getAllPackages(){
+		return listaDePacotes;
 	}
 	
 	
