@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 public class Cliente implements Serializable {
 
@@ -28,6 +30,7 @@ public class Cliente implements Serializable {
 		this.id = id;
 	}
 
+	@NotBlank
 	public String getNome() {
 		return nome;
 	}
@@ -36,6 +39,7 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 	}
 
+	@NotBlank
 	public String getEmail() {
 		return email;
 	}
@@ -44,6 +48,7 @@ public class Cliente implements Serializable {
 		this.email = email;
 	}
 
+	@NotBlank
 	public String getSenha() {
 		return senha;
 	}
