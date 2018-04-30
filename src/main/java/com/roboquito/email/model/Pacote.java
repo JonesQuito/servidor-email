@@ -8,18 +8,18 @@ public class Pacote implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String assunto;
-    private String mensagem;
+    private byte[] mensagem;
     private String remetente;
     private String destinatario;
     private Date dataCriacao;
     private byte[] chaveSimetrica;
     private ServerMethods metodo;
 
-    public String getMensagem() {
+    public byte[] getMensagem() {
         return mensagem;
     }
 
-    public void setMensagem(String mensagem) {
+    public void setMensagem(byte[] mensagem) {
         this.mensagem = mensagem;
     }
 

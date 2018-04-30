@@ -42,8 +42,12 @@ public class AtenderCliente implements Runnable {
 
 				case GET_ALL_OBJECTS:
 					for(Pacote p: pacotesRepository.getAllPackages()) {
-						System.out.println(p.getMensagem());
+						System.out.println("Mensagem: " + p.getDestinatario());
+						System.out.println("Mensagem: " + p.getRemetente());
+						System.out.println("Chave:" + new String(Util.asHex(p.getChaveSimetrica())));
+						System.out.println("Mensagem: " + p.getMensagem());
 					}
+					Util.enviarObjeto(pacotesRepository.getAllPackages().get(0), socketCliente.getOutputStream());
 					
 					break;
 

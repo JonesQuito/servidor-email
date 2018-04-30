@@ -13,7 +13,7 @@ public class Cliente {
 
 		Pacote pacote = new Pacote();
 		//pacote.setMensagem("Boa tarde professor, por gentileza considera a avaliação do dia 10/03");
-		pacote.setMensagem("mensagem - 04");
+		pacote.setMensagem("mensagem - 04".getBytes());
 		pacote.setRemetente("Jones Quito");
 		pacote.setMetodo(ServerMethods.GET_ALL_OBJECTS);
 		
