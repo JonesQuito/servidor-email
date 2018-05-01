@@ -19,19 +19,5 @@ public class ServidorEmailApplication {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-/*
-		try {
-			ServerSocket server = new ServerSocket(5000);
-
-			while (true) {
-				Socket socket = server.accept();
-				Thread thread = new Thread(new AtenderCliente(socket));
-				thread.start();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
-		
 	}
 }

@@ -3,6 +3,12 @@
 	text-align: center;
 }
 
+
+.av-table-vinhos-col-email {
+	width: 200px;
+	text-align: right;
+}
+
 .av-table-vinhos-col-tipo {
 	width: 100px;
 }

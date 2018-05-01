@@ -1,16 +1,28 @@
 package com.roboquito.email.server;
 
+import java.io.IOException;
 import java.net.Socket;
+import java.sql.Connection;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.roboquito.email.connection.ConnectionFactory;
+import com.roboquito.email.dao.ClienteDao;
+import com.roboquito.email.model.Cliente;
 import com.roboquito.email.model.Pacote;
 import com.roboquito.email.model.ServerMethods;
+import com.roboquito.email.repository.Clientes;
+import com.roboquito.email.repository.ClientesRepository;
 import com.roboquito.email.repository.PacotesRepository;
 import com.roboquito.email.service.Util;
 
 public class AtenderCliente implements Runnable {
 
+	@Autowired
+	Clientes clientes;
 	PacotesRepository pacotesRepository;
+	ClientesRepository clientesRepository;
 	Object objeto;
 	Socket socketCliente;
 	ArrayList<ServerMethods> metodos = new ArrayList<ServerMethods>();
@@ -18,6 +30,7 @@ public class AtenderCliente implements Runnable {
 	public AtenderCliente(Socket cliente) {
 		this.socketCliente = cliente;
 		this.pacotesRepository = PacotesRepository.getInstance();
+		clientesRepository = new ClientesRepository();
 		for (ServerMethods sm : ServerMethods.values()) {
 			metodos.add(sm);
 		}
@@ -31,9 +44,12 @@ public class AtenderCliente implements Runnable {
 
 	@Override
 	public void run() {
-		try {
+
+		if (objeto.getClass().equals(Pacote.class)) {
+
 			Pacote msg = (Pacote) objeto;
 			if (msg != null) {
+
 				switch (msg.getMetodo()) {
 				case SAVE_OBJECT:
 					pacotesRepository.addPacote(msg);
@@ -41,14 +57,11 @@ public class AtenderCliente implements Runnable {
 					break;
 
 				case GET_ALL_OBJECTS:
-					for(Pacote p: pacotesRepository.getAllPackages()) {
-						System.out.println("Mensagem: " + p.getDestinatario());
-						System.out.println("Mensagem: " + p.getRemetente());
-						System.out.println("Chave:" + new String(Util.asHex(p.getChaveSimetrica())));
-						System.out.println("Mensagem: " + p.getMensagem());
+					try {
+						Util.enviarObjeto(pacotesRepository.getAllPackages(), socketCliente.getOutputStream());
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
-					Util.enviarObjeto(pacotesRepository.getAllPackages().get(0), socketCliente.getOutputStream());
-					
 					break;
 
 				case GET_OBJECTS_BYADDRESSEE:
@@ -61,14 +74,21 @@ public class AtenderCliente implements Runnable {
 				}
 			}
 
-			//System.out.println("SERVIDOR - " + msg.getMensagem());
-			//msg.setMensagem("Pode ficar tranquilo que a avaliação será considerada!");
-			//Util.enviarObjeto(msg, socketCliente.getOutputStream());
-			//System.out.println("SERVIDOR - Pacote encaminhado para o cliente");
+		} else if (objeto.getClass().equals(Cliente.class)) {
 
-		} catch (Exception e) {
-			e.printStackTrace();
+			Cliente cliente = (Cliente) objeto;
+
+			if (cliente != null) {
+				Connection connection = new ConnectionFactory().getConnection();
+				ClienteDao dao = new ClienteDao(connection);
+				Cliente c = dao.pesquisarEmailAndSenha(cliente.getEmail(), cliente.getSenha());
+
+				try {
+					Util.enviarObjeto(c, socketCliente.getOutputStream());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-
 	}
 }

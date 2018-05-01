@@ -5,7 +5,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,12 +23,22 @@ public class DashboardController {
 	@Autowired
 	private Clientes clientes;
 	
-	@GetMapping
-	public String dashboard() {
-		//return "/dashboard";
-		return "/dashboard";
+	
+	@DeleteMapping("/{id}")
+	public String remover(@PathVariable Long id, RedirectAttributes attributes) {
+		clientes.delete(id);
+		attributes.addFlashAttribute("mensagem", "Cliente removido com sucesso!");
+		return "redirect:/servidor-email";
 	}
 	
+	
+	@GetMapping
+	public ModelAndView listar() {
+		ModelAndView modelAndView = new ModelAndView("lista-usuarios");
+		modelAndView.addObject("usuarios", clientes.findAll());
+		
+		return modelAndView;
+	}
 	
 	
 	@GetMapping("/novoCliente")
@@ -51,6 +63,11 @@ public class DashboardController {
 		attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso!");
 		
 		return new ModelAndView("redirect:/servidor-email/novoCliente");
+	}
+	
+	@GetMapping("/{id}")
+	public ModelAndView editar(@PathVariable Long id) {
+		return novo(clientes.findOne(id));
 	}
 
 }
