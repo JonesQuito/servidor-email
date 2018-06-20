@@ -8,4 +8,6 @@ import com.roboquito.email.model.Cliente;
 @Repository
 public interface Clientes extends JpaRepository<Cliente, Long>{
 	
+	public Cliente findByEmailAndSenha(String email, String senha);
+	
 }

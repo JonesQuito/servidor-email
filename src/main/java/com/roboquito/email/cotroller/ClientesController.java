@@ -18,7 +18,7 @@ import com.roboquito.email.repository.Clientes;
 
 @Controller
 @RequestMapping("/servidor-email")
-public class DashboardController {
+public class ClientesController {
 	
 	@Autowired
 	private Clientes clientes;
@@ -28,11 +28,11 @@ public class DashboardController {
 	public String remover(@PathVariable Long id, RedirectAttributes attributes) {
 		clientes.delete(id);
 		attributes.addFlashAttribute("mensagem", "Cliente removido com sucesso!");
-		return "redirect:/servidor-email";
+		return "redirect:/servidor-email/clientes";
 	}
 	
 	
-	@GetMapping
+	@GetMapping("clientes")
 	public ModelAndView listar() {
 		ModelAndView modelAndView = new ModelAndView("lista-usuarios");
 		modelAndView.addObject("usuarios", clientes.findAll());
@@ -43,7 +43,7 @@ public class DashboardController {
 	
 	@GetMapping("/novoCliente")
 	public ModelAndView novo(Cliente cliente) {
-		ModelAndView modelAndView = new ModelAndView("/dashboard");
+		ModelAndView modelAndView = new ModelAndView("/cadastro-usuario");
 		
 		modelAndView.addObject(cliente);
 		
@@ -65,7 +65,7 @@ public class DashboardController {
 		return new ModelAndView("redirect:/servidor-email/novoCliente");
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/cliente/editar/{id}")
 	public ModelAndView editar(@PathVariable Long id) {
 		return novo(clientes.findOne(id));
 	}

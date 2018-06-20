@@ -4,14 +4,13 @@ import java.net.Socket;
 
 import com.roboquito.email.model.Pacote;
 import com.roboquito.email.model.ServerMethods;
-import com.roboquito.email.repository.ClientesRepository;
 import com.roboquito.email.service.Util;
 
 public class Cliente {
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws Exception {
-/*
+
 		Pacote pacote = new Pacote();
 		Object obj = pacote;
 		//pacote.setMensagem("Boa tarde professor, por gentileza considera a avaliação do dia 10/03");
@@ -26,10 +25,8 @@ public class Cliente {
 		//pacote = (Pacote)Util.lerObjecto(socket.getInputStream());
 		//System.out.println("MENSAGEM RECEBIDA DO SERVIDOR: " + pacote.getMensagem());
 		System.out.println("Tipo do objeto: " + obj.getClass());
-		*/
-		ClientesRepository cr = new ClientesRepository();
 		
-		System.out.println(cr.getClienteByEmailAndSenha("jonesdhy@hotmail.com", "123456").getNome());
+
 	}
 
 }

@@ -1,11 +1,14 @@
 package com.roboquito.email.model;
 
 import java.io.Serializable;
+import java.security.PublicKey;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -18,8 +21,9 @@ public class Cliente implements Serializable {
 	private String nome;
 	private String email;
 	private String senha;
+	private PublicKey publickey;
+	private ServerMethods metodo;
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
@@ -40,6 +44,7 @@ public class Cliente implements Serializable {
 	}
 
 	@NotBlank
+	@Column(unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -56,6 +61,22 @@ public class Cliente implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
+	public PublicKey getPublickey() {
+		return publickey;
+	}
+
+	public void setPublickey(PublicKey publickey) {
+		this.publickey = publickey;
+	}
+
+	@Transient
+	public ServerMethods getMetodo() {
+		return metodo;
+	}
+
+	public void setMetodo(ServerMethods metodo) {
+		this.metodo = metodo;
+	}
 
 }

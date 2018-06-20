@@ -8,67 +8,84 @@ public class Pacote implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String assunto;
-    private byte[] mensagem;
-    private String remetente;
-    private String destinatario;
-    private Date dataCriacao;
-    private byte[] chaveSimetrica;
-    private ServerMethods metodo;
+	private byte[] mensagem;
+	byte[] hashCriptografado;
+	private String remetente;
+	private String destinatario;
+	private Date dataCriacao;
+	private byte[] chaveSimetrica;
+	private ServerMethods metodo;
 
-    public byte[] getMensagem() {
-        return mensagem;
-    }
+	/*
+	 * 1 - Criptografar a mensagem com AES 2 - Calcular o MD5 da mensagem original 3
+	 * - Criptograr o MD5 com a chave privada do remetente 4 - Criptografar a chave
+	 * simétrica usada para criptografar a mensagem. Usar a chave pública do
+	 * destinatário Resultado: {Mensagem criptografada, chave simétrica
+	 * criptografada, hash criptografado}
+	 */
 
-    public void setMensagem(byte[] mensagem) {
-        this.mensagem = mensagem;
-    }
+	public byte[] getMensagem() {
+		return mensagem;
+	}
 
-    public String getRemetente() {
-        return remetente;
-    }
+	public void setMensagem(byte[] mensagem) {
+		this.mensagem = mensagem;
+	}
 
-    public void setRemetente(String remetente) {
-        this.remetente = remetente;
-    }
+	public byte[] getHashCriptografado() {
+		return hashCriptografado;
+	}
 
-    public ServerMethods getMetodo() {
-        return metodo;
-    }
+	public void setHashCriptografado(byte[] hashCriptografado) {
+		this.hashCriptografado = hashCriptografado;
+	}
 
-    public void setMetodo(ServerMethods metodo) {
-        this.metodo = metodo;
-    }
+	public String getRemetente() {
+		return remetente;
+	}
 
-    public String getDestinatario() {
-        return destinatario;
-    }
+	public void setRemetente(String remetente) {
+		this.remetente = remetente;
+	}
 
-    public void setDestinatario(String destinatario) {
-        this.destinatario = destinatario;
-    }
+	public ServerMethods getMetodo() {
+		return metodo;
+	}
 
-    public String getAssunto() {
-        return assunto;
-    }
+	public void setMetodo(ServerMethods metodo) {
+		this.metodo = metodo;
+	}
 
-    public void setAssunto(String assunto) {
-        this.assunto = assunto;
-    }
+	public String getDestinatario() {
+		return destinatario;
+	}
 
-    public Date getDataCriacao() {
-        return dataCriacao;
-    }
+	public void setDestinatario(String destinatario) {
+		this.destinatario = destinatario;
+	}
 
-    public void setDataCriacao(Date dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
+	public String getAssunto() {
+		return assunto;
+	}
 
-    public byte[] getChaveSimetrica() {
-        return chaveSimetrica;
-    }
+	public void setAssunto(String assunto) {
+		this.assunto = assunto;
+	}
 
-    public void setChaveSimetrica(byte[] chaveSimetrica) {
-        this.chaveSimetrica = chaveSimetrica;
-    }
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public byte[] getChaveSimetrica() {
+		return chaveSimetrica;
+	}
+
+	public void setChaveSimetrica(byte[] chaveSimetrica) {
+		this.chaveSimetrica = chaveSimetrica;
+	}
 
 }

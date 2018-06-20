@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout-padrao2}">
+<head>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-8">
+						<h1>
+							Login
+						</h1>
+					</div>
+
+					<div class="col-xs-4">
+						<div class="aw-page-header-controls">
+							<a class="btn btn-primary">
+								<i class="fa fa-table"></i>
+
+								<span class="hidden-xs hidden-sm">Lista usuários</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+
+
+			<form method="POST" class="form-vertical  js-form-loading">
+				
+				
+                <div class="alert  alert-danger  alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<div>
+						<i class="fa fa-exclamation-circle"></i>
+						<span>Mensagem erro.</span>
+					</div>					
+				</div>
+				
+				
+				<div class="alert  alert-success ">
+					<i class="fa fa-check-circle"></i>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span>Mensagem sucesso!</span>
+				</div>
+				
+				
+				
+				
+				<div class="form-group">
+					<label for="nome">Nome</label>
+					<input id="nome" type="text" class="form-control"/>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="email">Email</label>
+
+							<input id="email" type="text" class="form-control"/>
+						</div>
+					</div>
+
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="senha">Senha</label>
+							
+							<input id="senha" type="password" class="form-control"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Registrar</button>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>

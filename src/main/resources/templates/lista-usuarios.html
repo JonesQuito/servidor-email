@@ -33,13 +33,19 @@
 			</div>
 
 			<div class="container-fluid">
-				<div class="alert  alert-success" 
-					th:if="${!#strings.isEmpty(mensagem)}">
+				
+				
+				<!-- ALERTA DE SUCESSO -->			
+				<div class="alert  alert-success" th:if="${!#strings.isEmpty(mensagem)}">
 					<i class="fa fa-check-circle"></i>
-
-					<span>Mensagem sucesso!</span>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span th:text="${mensagem}">Mensagem sucesso!</span>
 				</div>
 
+				
+				<!-- TABELA DE DADOS -->
 				<div class="table-responsive">
 					<table id="tabela-produtos" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
 						<thead class="aw-table-header-solid">
@@ -57,7 +63,7 @@
 									th:text="${usuario.id}">1</td>
 									
 								<td class="text-center">
-									<a th:href="@{/servidor-email/{id}(id=${usuario.id})}"
+									<a th:href="@{/servidor-email/cliente/editar/{id}(id=${usuario.id})}"
 										th:text="${usuario.nome}">Usuário</a>	
 								</td>
 									

@@ -13,7 +13,6 @@ public class ServidorEmailApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ServidorEmailApplication.class, args);
 		
-		
 		try {
 			new Servidor(5000).executa();
 		} catch (IOException e) {
