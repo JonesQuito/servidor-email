@@ -3,6 +3,8 @@
 ## Projeto desenvolvido como atividade de avaliação da disciplina de "Segurança em Sistemas de Informação" do curso de SI - UFG
 
 ## Breve descrição
+Este sistema funciona como um repositório dos emails trocados pelos clientes. A ideia é que quando um rementente envia uma mensagem/email, o email é armazenado neste servidor para que possa ser entrege ao destinatário, quando entrar online.
+A aplicação cliente sincroniza com este servidor sempre que o usuário se autentíca.
 
 
 ## Para fazer o clone
