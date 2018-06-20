@@ -13,6 +13,7 @@
 
 
 ## Requisitos implementados
-- [X] ...
-- [X] ...
-- [X] ...
+- [X] Criar uma conta de usuário
+- [X] Visualizar todas todas as contas criadas
+- [X] Editar dados de uma conta
+- [X] Excluir uma conta
